@@ -8,11 +8,8 @@ class ModeloRegistro {
     Registrar usuario
     =============================================*/
     static public function mdlRegistro($tabla, $datos){
-
-        $sql = "INSERT INTO {$tabla} 
-                    (pers_nombre, pers_telefono, pers_correo, pers_clave) 
-                VALUES 
-                    (:nombre, :telefono, :correo, :clave)";
+        
+        $sql = "INSERT INTO {$tabla} (pers_nombre, pers_telefono, pers_correo, pers_clave) VALUES (:nombre, :telefono, :correo, :clave)";
 
         $stmt = Conexion::conectar()->prepare($sql);
 
