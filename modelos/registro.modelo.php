@@ -24,4 +24,6 @@ class ModeloRegistro {
         return $ok ? "ok" : "error";
     }
 
+    
+
 }
