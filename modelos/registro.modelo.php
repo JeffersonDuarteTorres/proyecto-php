@@ -24,6 +24,56 @@ class ModeloRegistro {
         return $ok ? "ok" : "error";
     }
 
-    
+    /*=============================================
+    Seleccionar Registros
+    =============================================*/
+    static public function mdlSeleccionarRegistro($tabla, $item, $valor){
+
+        if ($item === null && $valor === null) {
+
+            // Trae todos los registros, aliasando la PK a 'id'
+            $sql = "
+                SELECT 
+                    pk_id_persona AS id,
+                    pers_nombre,
+                    pers_telefono,
+                    pers_correo,
+                    pers_clave,
+                    DATE_FORMAT(pers_fecha_registro, '%d/%m/%Y') AS fecha 
+                FROM {$tabla} 
+            ";
+
+            $stmt = Conexion::conectar()->prepare($sql);
+            $stmt->execute();
+            $datos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt->closeCursor();
+
+            return $datos;
+
+        } else {
+
+            // Trae un solo registro filtrado
+            $sql = "
+                SELECT 
+                    pk_id_persona AS id,
+                    pers_nombre,
+                    pers_telefono,
+                    pers_correo,
+                    pers_clave,
+                    DATE_FORMAT(pers_fecha_registro, '%d/%m/%Y') AS fecha 
+                FROM {$tabla} 
+                WHERE {$item} = :valor 
+            ";
+
+            $stmt = Conexion::conectar()->prepare($sql);
+            $stmt->bindValue(":valor", $valor, PDO::PARAM_STR);
+            $stmt->execute();
+            $dato = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt->closeCursor();
+
+            return $dato;
+        }
+
+    }
 
 }

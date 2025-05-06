@@ -39,7 +39,12 @@
             
                     </div>
 
-                    
+                    <?php
+
+                    $ingreso = new ControladorRegistro();
+                    $ingreso -> ctrIngreso();
+
+                    ?>
             
                     <button type="submit" class="btn btn-primary mt-2">Ingresar</button>
                 </form>
